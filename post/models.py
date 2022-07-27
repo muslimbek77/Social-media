@@ -12,14 +12,16 @@ post_type_choices = (
 # Create your models here.
 class Post(BaseModel):
     content = models.TextField()
-    image = models.ImageField(upload_to="/media/post")
+    image = models.ImageField(upload_to="post")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post_type = models.CharField(choices=post_type_choices)
+    post_type = models.CharField(max_length=200,choices=post_type_choices)
 
     comments_count = models.PositiveIntegerField(default=0)
     likes_count = models.PositiveIntegerField(default=0)
     dislikes_count = models.PositiveIntegerField(default=0)
     shares_count = models.PositiveIntegerField(default=0)
+    update_count = models.IntegerField(default=0)
+
 
     users_like = models.ManyToManyField(User, related_name="posts_liked", blank=True)
 
